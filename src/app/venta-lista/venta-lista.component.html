@@ -1,0 +1,71 @@
+<div class="container">
+
+    <div [hidden]="control">
+
+        <div class="row">
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Numero</th>
+                        <th scope="col">Serie</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (x of ventas; track x.id_venta; let i = $index) {
+                        <tr>
+                            <th scope="row">{{ i + 1 }}</th>                    
+                            <td>{{ x.numero| number }}</td>
+                            <td>{{ x.serie| number }}</td>
+                            <td>{{ x.total| currency }}</td>
+                            <td>{{ x.fecha| date:" dd MMM, yyyy" }}</td>
+                            <button id="detalle" (click)="onDetalle(x)">Detalle</button>
+                            <button id="remove" (click)="onEliminarVenta(x)">Eliminar</button>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+    <div [hidden]="!control">
+        <div class="row">
+        <div class="col-12">
+            <h5>Venta-{{serie}}-{{numero}}</h5>
+        </div>
+        <div class="col-12">
+
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Numero</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (d of detalles; track d.id_detalle; let i = $index) {
+                    <tr>
+                        <th scope="row">{{ i + 1 }}</th>                    
+                        <td>{{ d.precio| currency }}</td>
+                        <td>{{ d.cantidad | number }}</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-3">
+        <button id="regresar" (click)="onRegresar()"><i class="bi bi-trash">Regresar</i></button>
+    </div>
+    </div>
+    </div >
+
+</div>
